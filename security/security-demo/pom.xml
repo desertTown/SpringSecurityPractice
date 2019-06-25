@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.evan</groupId>
-            <artifactId>security-browser</artifactId>
+            <artifactId>security_browser</artifactId>
             <version>${security.version}</version>
         </dependency>
         <dependency>
