@@ -41,3 +41,11 @@ http://localhost:8060/evan-signIn.html
 http://localhost:8060/user   能正常访问
 访问这个会报错 -> 验证码的值不能为空。 因为我们配置了url user/* 需要验证码验证
 http://localhost:8060/user/1
+
+4-9 添加记住我功能
+测试
+1.  http://localhost:8060/user   会提示没权限
+2. http://localhost:8060/evan-signIn.html   正确输入登录信息， 并且勾上记住我选项
+3. SELECT * FROM persistent_logins   查看数据发现会多出刚才登录的信息
+4. 重启服务
+5. http://localhost:8060/user    发现不用登录也能访问
