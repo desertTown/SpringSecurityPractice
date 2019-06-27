@@ -29,3 +29,8 @@ localhost:8060/index.html   ->  首先会跳转到登录页， 登录成功之�
 如果配置的是
 evan.security.browser.loginType = JSON   （Browser模块默认是返回JSON）
 访问 localhost:8060/index.html  无论成功还是失败， 都只会放回JSON 信息， 逻辑需要前端去处理
+
+4-6 获取认证用户信息
+http://localhost:8060/evan-signIn.html  登录
+http://localhost:8060/user/me   获取认证用户信息
+http://localhost:8060/user/meWithAuthenticationInfo

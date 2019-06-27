@@ -14,6 +14,10 @@ import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +41,23 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+	// 这种写法和下面那种效果是一样的， 都是获取认证用户信息
+//	@GetMapping("/me")
+//	public Authentication getCurrentUser() {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//		return authentication;
+//	}
+
+	//  获取认证用户信息, 相对于下面这种信息会多一点
+	@GetMapping("/meWithAuthenticationInfo")
+	public Object getCurrentAuthentication(Authentication authentication) {
+		return authentication;
+	}
+	//  获取认证用户信息
+	@GetMapping("/me")
+	public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+		return user;
+	}
 
 	@PostMapping
 	@ApiOperation(value = "创建用户")
