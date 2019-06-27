@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.evan.security.browser.support.SimpleResponse;
 import com.evan.security.core.properties.LoginType;
 import com.evan.security.core.properties.SecurityProperties;
 import org.slf4j.Logger;
@@ -50,9 +51,15 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
 		if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(objectMapper.writeValueAsString(exception));
+			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
 		}else{
-			super.onAuthenticationFailure(request, response, exception);
+			// 在这里失败跳转不回去了。而且异常信息也没有打印出来。父类默认打印了死的一句话
+			// 在这里就不往上面扔了,这里就先当做 defaultFailureUrl 不存在吧
+			// 模拟打印异常信息
+			response.setContentType("text/html;charset=UTF-8");
+			response.sendError(HttpStatus.UNAUTHORIZED.value(),
+					exception.getLocalizedMessage());
+//			super.onAuthenticationFailure(request, response, exception);
 		}
 		
 		

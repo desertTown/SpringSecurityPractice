@@ -4,6 +4,7 @@
 package com.evan.security.browser;
 
 import com.evan.security.core.properties.SecurityProperties;
+import com.evan.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author Evan Huang
@@ -32,8 +34,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// 这种表单认证方式会使UsernamePasswordAuthenticationFilter 生效
-		http.formLogin()
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
+
+		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                // 这种表单认证方式会使UsernamePasswordAuthenticationFilter 生效
+                .formLogin()
 			.loginPage("/authentication/require")
 			.loginProcessingUrl("/authentication/form")
 			.successHandler(imoocAuthenticationSuccessHandler)
@@ -43,7 +49,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.authorizeRequests()
 			.antMatchers("/authentication/require",
-					securityProperties.getBrowser().getLoginPage()).permitAll()
+					securityProperties.getBrowser().getLoginPage(),
+                    "/code/image").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
