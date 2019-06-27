@@ -4,30 +4,51 @@
 package com.evan.security.core.validate.code;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.evan.security.core.properties.SecurityProperties;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * @author zhailiang
+ * @author Evan Huang
  * OncePerRequestFilter  这个Filter保证每次只会被调用一次
  */
-public class ValidateCodeFilter extends OncePerRequestFilter {
+public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
 	
 	private AuthenticationFailureHandler authenticationFailureHandler;
 	
 	private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
+	private Set<String> urls = new HashSet<>();
+
+	private SecurityProperties securityProperties;
+
+	private AntPathMatcher pathMatcher = new AntPathMatcher();
+
+	@Override
+	public void afterPropertiesSet() throws ServletException {
+		super.afterPropertiesSet();
+		String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(securityProperties.getCode().getImage().getUrl(), ",");
+		for (String configUrl : configUrls) {
+			urls.add(configUrl);
+		}
+		urls.add("/authentication/form");
+	}
 
 	/* (non-Javadoc)
 	 * @see org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
@@ -35,19 +56,25 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		
-		if(StringUtils.equals("/authentication/form", request.getRequestURI())
-				&& StringUtils.equalsIgnoreCase(request.getMethod(), "post")) {
-			
+
+		boolean action = false;
+		for (String url : urls) {
+			if(pathMatcher.match(url, request.getRequestURI())){
+				action = true;
+			}
+		}
+
+		if(action) {
+
 			try {
 				validate(new ServletWebRequest(request));
 			} catch (ValidateCodeException e) {
 				authenticationFailureHandler.onAuthenticationFailure(request, response, e);
 				return;
 			}
-			
+
 		}
-		
+
 		filterChain.doFilter(request, response);
 		
 	}
@@ -94,6 +121,20 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 	public void setSessionStrategy(SessionStrategy sessionStrategy) {
 		this.sessionStrategy = sessionStrategy;
 	}
-	
 
+	public Set<String> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(Set<String> urls) {
+		this.urls = urls;
+	}
+
+	public SecurityProperties getSecurityProperties() {
+		return securityProperties;
+	}
+
+	public void setSecurityProperties(SecurityProperties securityProperties) {
+		this.securityProperties = securityProperties;
+	}
 }

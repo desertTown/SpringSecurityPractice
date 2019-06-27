@@ -34,3 +34,10 @@ evan.security.browser.loginType = JSON   （Browser模块默认是返回JSON）
 http://localhost:8060/evan-signIn.html  登录
 http://localhost:8060/user/me   获取认证用户信息
 http://localhost:8060/user/meWithAuthenticationInfo
+
+4-8 图片验证码重构
+http://localhost:8060/evan-signIn.html
+登录成功之后访问
+http://localhost:8060/user   能正常访问
+访问这个会报错 -> 验证码的值不能为空。 因为我们配置了url user/* 需要验证码验证
+http://localhost:8060/user/1

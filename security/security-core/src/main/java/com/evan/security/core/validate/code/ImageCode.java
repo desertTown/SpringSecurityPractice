@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * @author zhailiang
+ * @author Evan Huang
  *
  */
 public class ImageCode {
