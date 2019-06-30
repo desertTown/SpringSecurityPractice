@@ -56,7 +56,7 @@ public class ValidateCodeController {
 	public void createSmsCode(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
 
 		ValidateCode smsCode = smsCodeGenerator.generate(new ServletWebRequest(request));
-		sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, smsCode);
+		sessionStrategy.setAttribute(new ServletWebRequest(request), ValidateCodeProcessor.SESSION_KEY_PREFIX+"SMS", smsCode);
 		String mobile = ServletRequestUtils.getRequiredStringParameter(request, "mobile");
 		smsCodeSender.send(mobile, smsCode.getCode());
 

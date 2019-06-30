@@ -3,7 +3,9 @@
  */
 package com.evan.security.browser;
 
+import com.evan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.evan.security.core.properties.SecurityProperties;
+import com.evan.security.core.validate.code.SmsCodeFilter;
 import com.evan.security.core.validate.code.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +46,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	@Autowired
+	private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -65,7 +70,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 		validateCodeFilter.setSecurityProperties(securityProperties);
 		validateCodeFilter.afterPropertiesSet();
 
-		http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+		SmsCodeFilter smsCodeFilter = new SmsCodeFilter();
+		smsCodeFilter.setAuthenticationFailureHandler(imoocAuthenticationFailureHandler);
+		smsCodeFilter.setSecurityProperties(securityProperties);
+		smsCodeFilter.afterPropertiesSet();
+
+		http.addFilterBefore(smsCodeFilter, UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 // 这种表单认证方式会使UsernamePasswordAuthenticationFilter 生效
                 .formLogin()
 					.loginPage("/authentication/require")
@@ -87,7 +98,8 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest()
 			.authenticated()
 			.and()
-			.csrf().disable();
+			.csrf().disable()
+			.apply(smsCodeAuthenticationSecurityConfig);
 		
 	}
 
