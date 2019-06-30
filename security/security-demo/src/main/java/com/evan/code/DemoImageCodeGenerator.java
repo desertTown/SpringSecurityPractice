@@ -6,7 +6,6 @@ package com.evan.code;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
-import com.evan.security.core.validate.code.ImageCode;
 import com.evan.security.core.validate.code.ValidateCodeGenerator;
 
 /**

@@ -16,12 +16,11 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author Evan Huang
  *
  */
-@Component("smsCodeGenerator")
+@Component("smsValidateCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {
 
 	@Autowired
 	private SecurityProperties securityProperties;
-
 	@Override
 	public ValidateCode generate(ServletWebRequest request) {
 		String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
@@ -35,7 +34,5 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
 	public void setSecurityProperties(SecurityProperties securityProperties) {
 		this.securityProperties = securityProperties;
 	}
-	
-	
 
 }
