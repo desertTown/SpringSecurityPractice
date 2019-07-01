@@ -49,3 +49,21 @@ http://localhost:8060/user/1
 3. SELECT * FROM persistent_logins   查看数据发现会多出刚才登录的信息
 4. 重启服务
 5. http://localhost:8060/user    发现不用登录也能访问
+
+5-4 
+建表语句
+```sql
+create table UserConnection (userId varchar(255) not null,
+	providerId varchar(255) not null,
+	providerUserId varchar(255),
+	rank int not null,
+	displayName varchar(255),
+	profileUrl varchar(512),
+	imageUrl varchar(512),
+	accessToken varchar(512) not null,
+	secret varchar(512),
+	refreshToken varchar(512),
+	expireTime bigint,
+	primary key (userId, providerId, providerUserId));
+create unique index UserConnectionRank on UserConnection(userId, providerId, rank);
+```
