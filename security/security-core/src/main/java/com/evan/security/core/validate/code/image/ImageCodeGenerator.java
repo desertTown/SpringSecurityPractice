@@ -21,13 +21,11 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author Evan Huang
  *
  */
-@Component("imageValidateCodeGenerator")
 public class ImageCodeGenerator implements ValidateCodeGenerator {
 
 	/**
 	 * 系统配置
 	 */
-	@Autowired
 	private SecurityProperties securityProperties;
 
 	@Override

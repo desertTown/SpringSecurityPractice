@@ -9,9 +9,9 @@ package com.evan.security.core.properties;
  */
 public class BrowserProperties {
 
-	private String loginPage = "/evan-signIn.html";
+	private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
-	private LoginType loginType = LoginType.JSON;
+	private LoginResponseType loginType = LoginResponseType.JSON;
 
 	private int rememberMeSeconds = 3600;
 
@@ -23,11 +23,11 @@ public class BrowserProperties {
 		this.loginPage = loginPage;
 	}
 
-	public LoginType getLoginType() {
+	public LoginResponseType getLoginType() {
 		return loginType;
 	}
 
-	public void setLoginType(LoginType loginType) {
+	public void setLoginType(LoginResponseType loginType) {
 		this.loginType = loginType;
 	}
 
@@ -38,4 +38,5 @@ public class BrowserProperties {
 	public void setRememberMeSeconds(int rememberMeSeconds) {
 		this.rememberMeSeconds = rememberMeSeconds;
 	}
+
 }
