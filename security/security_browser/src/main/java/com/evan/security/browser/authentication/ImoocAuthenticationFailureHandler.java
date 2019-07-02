@@ -27,8 +27,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Evan Huang
  *
  */
-@Component("imoocAuthenctiationFailureHandler")
-public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+@Component("imoocAuthenticationFailureHandler")
+public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 	

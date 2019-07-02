@@ -1,10 +1,12 @@
 -- 记住我功能用的表
+DROP TABLE IF EXISTS `persistent_logins`;
 create table persistent_logins (username varchar(64) not null,
 								series varchar(64) primary key,
 								token varchar(64) not null,
 								last_used timestamp not null);
 
 -- 社交登录用的表 5-4,  providerUserId 可以理解为openId
+DROP TABLE IF EXISTS `imooc_UserConnection`;
 create table imooc_UserConnection (userId varchar(255) not null,
 	providerId varchar(255) not null,
 	providerUserId varchar(255),
