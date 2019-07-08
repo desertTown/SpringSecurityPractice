@@ -1,8 +1,9 @@
 /**
  * 
  */
-package com.evan.security.core.social.qq;
+package com.evan.security.core.social;
 
+import com.evan.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	private SecurityProperties securityProperties;
+
 	/**
 	 * connectionFactoryLocator：  查找connectionFactory，因为系统中可能有多个connectionFactory
 	 * 他会根据条件去查找当前应该使用哪个connectionFactory
@@ -41,10 +45,12 @@ public class SocialConfig extends SocialConfigurerAdapter {
 		repository.setTablePrefix("imooc_");
 		return repository;
 	}
-	
+
 	@Bean
 	public SpringSocialConfigurer imoocSocialSecurityConfig() {
-		return new SpringSocialConfigurer();
+		String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
+		ImoocSpringSocialConfigurer configurer = new ImoocSpringSocialConfigurer(filterProcessesUrl);
+		return configurer;
 	}
 	
 }
