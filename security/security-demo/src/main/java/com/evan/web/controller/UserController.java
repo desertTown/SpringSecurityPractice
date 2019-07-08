@@ -6,18 +6,21 @@ package com.evan.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.evan.dto.User;
 import com.evan.dto.UserQueryCondition;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * @author Evan Huang
@@ -41,6 +45,18 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+	@Autowired
+	private ProviderSignInUtils providerSignInUtils;
+
+	@PostMapping("/regist")
+	public void regist(User user, HttpServletRequest request) {
+
+		//不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
+		String userId = user.getUsername();
+		providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+	}
+
 	// 这种写法和下面那种效果是一样的， 都是获取认证用户信息
 //	@GetMapping("/me")
 //	public Authentication getCurrentUser() {

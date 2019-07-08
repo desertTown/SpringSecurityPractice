@@ -7,7 +7,7 @@ import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
- * @author zhailiang
+ * @author Evan Huang
  *
  */
 public class ImoocSpringSocialConfigurer extends SpringSocialConfigurer {
