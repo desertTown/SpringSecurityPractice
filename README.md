@@ -67,3 +67,10 @@ create table UserConnection (userId varchar(255) not null,
 	primary key (userId, providerId, providerUserId));
 create unique index UserConnectionRank on UserConnection(userId, providerId, rank);
 ```
+
+
+5-6
+
+测试QQ登录使用这个url(需要host文件映射 127.0.0.1	www.pinzhi365.com)
+
+http://www.pinzhi365.com/evan-signIn.html
