@@ -1,0 +1,10 @@
+
+## 解绑
+## 这里执行没用下面url没用， 可以使用网页版的restClient  去发请求测试，
+##  发了之后查询DB，SELECT * FROM imooc_userconnection  会发现删除相关结果成功
+DELETE http://www.pinzhi365.com/connect/weixin HTTP/1.1
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+###

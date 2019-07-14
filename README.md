@@ -50,7 +50,7 @@ http://localhost:8060/user/1
 4. 重启服务
 5. http://localhost:8060/user    发现不用登录也能访问
 
-5-4 
+5-4 开发QQ登录（中）
 建表语句
 ```sql
 create table UserConnection (userId varchar(255) not null,
@@ -69,8 +69,31 @@ create unique index UserConnectionRank on UserConnection(userId, providerId, ran
 ```
 
 
-5-6
+5-6 处理QQ注册逻辑
 
 测试QQ登录使用这个url(需要host文件映射 127.0.0.1	www.pinzhi365.com)
 
 http://www.pinzhi365.com/evan-signIn.html
+
+
+5-8 绑定与解绑处理
+
+1.在登录成功之后, 访问
+> http://www.pinzhi365.com/connect
+
+查看该账号与哪些社交账号绑定了
+
+2. 登录成功之后， 访问
+> http://www.pinzhi365.com/evan-banding.html
+
+然后跳转到微信扫码界面， 确认登录之后， 使用sql查询， 会发现多一条数据
+> SELECT * FROM imooc_userconnection
+
+
+3. 解绑
+ 
+ 手动触发解绑操作 可以使用网页版的restClient  去发请求测试，
+ 
+ DELETE http://www.pinzhi365.com/connect/weixin
+ 
+ 发了之后查询DB，SELECT * FROM imooc_userconnection  会发现删除相关结果成功
