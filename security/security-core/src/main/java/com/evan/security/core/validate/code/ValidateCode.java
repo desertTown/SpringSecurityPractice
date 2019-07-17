@@ -3,7 +3,7 @@
  */
 package com.evan.security.core.validate.code;
 
-import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
  * @author Evan Huang
  *
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable {
+
+	private static final long serialVersionUID = -6020470039852318468L;
 
 	private String code;
 
