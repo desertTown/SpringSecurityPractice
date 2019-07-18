@@ -108,10 +108,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
 	}
 
-	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 
 	@Bean
 	public PersistentTokenRepository persistentTokenRepository() {

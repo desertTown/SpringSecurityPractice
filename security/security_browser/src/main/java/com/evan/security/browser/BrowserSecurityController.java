@@ -3,10 +3,10 @@
  */
 package com.evan.security.browser;
 
-import com.evan.security.browser.support.SimpleResponse;
 import com.evan.security.browser.support.SocialUserInfo;
 import com.evan.security.core.properties.SecurityConstants;
 import com.evan.security.core.properties.SecurityProperties;
+import com.evan.security.core.support.SimpleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

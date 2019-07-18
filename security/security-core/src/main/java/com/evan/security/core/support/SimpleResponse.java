@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.evan.security.browser.support;
+package com.evan.security.core.support;
 
 /**
  * @author Evan Huang
