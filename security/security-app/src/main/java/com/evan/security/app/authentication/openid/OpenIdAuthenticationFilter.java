@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.app.social.openid;
+package com.evan.security.app.authentication.openid;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

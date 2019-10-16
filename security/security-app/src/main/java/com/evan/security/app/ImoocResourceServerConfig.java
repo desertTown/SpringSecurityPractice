@@ -3,7 +3,7 @@
  */
 package com.evan.security.app;
 
-import com.evan.security.app.social.openid.OpenIdAuthenticationSecurityConfig;
+import com.evan.security.app.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import com.evan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.evan.security.core.properties.SecurityConstants;
 import com.evan.security.core.properties.SecurityProperties;
@@ -73,7 +73,7 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
                         securityProperties.getBrowser().getSignUpUrl(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
                         securityProperties.getBrowser().getSignOutUrl(),
-                        "/user/regist")
+                        "/user/regist", "/social/signUp")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

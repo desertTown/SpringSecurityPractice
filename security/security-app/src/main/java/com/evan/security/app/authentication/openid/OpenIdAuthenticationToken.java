@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.app.social.openid;
+package com.evan.security.app.authentication.openid;
 
 import java.util.Collection;
 

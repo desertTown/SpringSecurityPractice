@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import com.evan.dto.User;
 import com.evan.dto.UserQueryCondition;
+import com.evan.security.app.social.AppSingUpUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,12 +50,16 @@ public class UserController {
 	@Autowired
 	private ProviderSignInUtils providerSignInUtils;
 
+	@Autowired
+	private AppSingUpUtils appSingUpUtils;
+
 	@PostMapping("/regist")
 	public void regist(User user, HttpServletRequest request) {
 
 		//不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
 		String userId = user.getUsername();
-		providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//		providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+		appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
 	}
 
 	// 这种写法和下面那种效果是一样的， 都是获取认证用户信息

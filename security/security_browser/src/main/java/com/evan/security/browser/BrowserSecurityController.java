@@ -3,7 +3,7 @@
  */
 package com.evan.security.browser;
 
-import com.evan.security.browser.support.SocialUserInfo;
+import com.evan.security.core.support.SocialUserInfo;
 import com.evan.security.core.properties.SecurityConstants;
 import com.evan.security.core.properties.SecurityProperties;
 import com.evan.security.core.support.SimpleResponse;
