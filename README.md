@@ -97,3 +97,18 @@ http://www.pinzhi365.com/evan-signIn.html
  DELETE http://www.pinzhi365.com/connect/weixin
  
  发了之后查询DB，SELECT * FROM imooc_userconnection  会发现删除相关结果成功
+ 
+ 
+ 6-6 重构社交登录
+ 测试：
+ 1. demo项目依赖browser模块， 以debug模式启动
+ 2. 在 OAuth2AuthenticationService.getAuthToken(HttpServletRequest request, HttpServletResponse response)打 个断点
+ 3. http://www.pinzhi365.com/evan-signIn.html  登录微信
+ 4. F9 开发者模式查看有一条包含code和state的重定向url， 拷贝起来
+ 5. 进入断点, 停掉IDEA
+ 6. 拷贝此时的url
+ 7. demo项目依赖app模块， 启动
+ 8. 将刚才的url复制到Talend API Tester 工具上访问(带上Authorization信息)
+ 9. 这里是访问失败的， 异常信息提示code被用过了， 怀疑刚才IDEA 关闭的时候， 上一次的请求还是发出去了
+ 
+ 
