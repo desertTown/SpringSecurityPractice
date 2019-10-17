@@ -111,4 +111,7 @@ http://www.pinzhi365.com/evan-signIn.html
  8. 将刚才的url复制到Talend API Tester 工具上(07社交登录)访问(带上Authorization信息)
  9. 这里是访问失败的， 异常信息提示code被用过了， 怀疑刚才IDEA 关闭的时候， 上一次的请求还是发出去了
  
+ 6-9 使用JWT 替换默认令牌
  
+测试：
+访问 02密码模式 -> 00获取用户信息  -> 10刷新token

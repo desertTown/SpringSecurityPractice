@@ -15,7 +15,13 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Evan Huang
@@ -32,16 +38,34 @@ public class ImoocAuthorizationServerConfig extends AuthorizationServerConfigure
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenStore redisTokenStore;
+    private TokenStore tokenStore;
+
+
+    @Autowired(required = false)
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+    // 这个Bean 在jwt的配置下才会生效,所以设置required为false
+    @Autowired(required = false)
+    private TokenEnhancer jwtTokenEnhancer;
 
     @Autowired
     private SecurityProperties securityProperties;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(redisTokenStore)
+        endpoints.tokenStore(tokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
+
+        if(jwtAccessTokenConverter != null && jwtTokenEnhancer != null){
+            TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+            List<TokenEnhancer> enhancers = new ArrayList<>();
+            enhancers.add(jwtTokenEnhancer);
+            enhancers.add(jwtAccessTokenConverter);
+            enhancerChain.setTokenEnhancers(enhancers);
+            endpoints.tokenEnhancer(enhancerChain)
+                    .accessTokenConverter(jwtAccessTokenConverter);
+        }
     }
 
     @Override

@@ -3,6 +3,7 @@
  */
 package com.evan.web.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,9 @@ import javax.validation.Valid;
 import com.evan.dto.User;
 import com.evan.dto.UserQueryCondition;
 import com.evan.security.app.social.AppSingUpUtils;
+import com.evan.security.core.properties.SecurityProperties;
+import io.jsonwebtoken.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +57,9 @@ public class UserController {
 	@Autowired
 	private AppSingUpUtils appSingUpUtils;
 
+	@Autowired
+	private SecurityProperties securityProperties;
+
 	@PostMapping("/regist")
 	public void regist(User user, HttpServletRequest request) {
 
@@ -76,7 +83,16 @@ public class UserController {
 	}
 	//  获取认证用户信息
 	@GetMapping("/me")
-	public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+	public Object getCurrentUser(Authentication user, HttpServletRequest request) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException, UnsupportedEncodingException {
+
+		String token = StringUtils.substringAfter(request.getHeader("Authorization"), "bearer ");
+
+		Claims claims = Jwts.parser().setSigningKey(securityProperties.getOauth2().getJwtSigningKey().getBytes("UTF-8"))
+				.parseClaimsJws(token).getBody();
+
+		String company = (String) claims.get("company");
+
+		System.out.println("-->" + company);
 		return user;
 	}
 
