@@ -26,7 +26,7 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableSocial
-@Order(1)
+@Order(10)
 public class SocialConfig extends SocialConfigurerAdapter {
 	
 	@Autowired
