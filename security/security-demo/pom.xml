@@ -12,16 +12,16 @@
     <artifactId>security-demo</artifactId>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>com.evan</groupId>-->
-<!--            <artifactId>security_browser</artifactId>-->
-<!--            <version>${security.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.evan</groupId>
-            <artifactId>security-app</artifactId>
+            <artifactId>security_browser</artifactId>
             <version>${security.version}</version>
         </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.evan</groupId>-->
+<!--            <artifactId>security-app</artifactId>-->
+<!--            <version>${security.version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

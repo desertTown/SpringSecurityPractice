@@ -12,7 +12,7 @@ import javax.validation.Valid;
 
 import com.evan.dto.User;
 import com.evan.dto.UserQueryCondition;
-import com.evan.security.app.social.AppSingUpUtils;
+//import com.evan.security.app.social.AppSingUpUtils;
 import com.evan.security.core.properties.SecurityProperties;
 import io.jsonwebtoken.*;
 import org.apache.commons.lang.StringUtils;
@@ -51,11 +51,13 @@ import org.springframework.web.context.request.ServletWebRequest;
 @RequestMapping("/user")
 public class UserController {
 
+	// 这个是当DEMO项目依赖Browser模块时需要使用
 	@Autowired
 	private ProviderSignInUtils providerSignInUtils;
 
-	@Autowired
-	private AppSingUpUtils appSingUpUtils;
+	// 这个是当DEMO项目依赖APP模块时需要使用
+//	@Autowired
+//	private AppSingUpUtils appSingUpUtils;
 
 	@Autowired
 	private SecurityProperties securityProperties;
@@ -65,8 +67,8 @@ public class UserController {
 
 		//不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
 		String userId = user.getUsername();
-//		providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
-		appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
+		providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
+//		appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
 	}
 
 	// 这种写法和下面那种效果是一样的， 都是获取认证用户信息
