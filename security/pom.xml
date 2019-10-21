@@ -23,6 +23,7 @@
         <module>security-core</module>
         <module>security-app</module>
         <module>security_browser</module>
+        <module>sso_demo</module>
     </modules>
 
     <dependencyManagement>

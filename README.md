@@ -115,3 +115,9 @@ http://www.pinzhi365.com/evan-signIn.html
  
 测试：
 访问 02密码模式 -> 00获取用户信息  -> 10刷新token
+
+
+6-11 SSO
+测试:启动sso_server, sso_client1,sso_client2
+http://127.0.0.1:8080/client1/index.html
+账号随便填，  密码是123456
