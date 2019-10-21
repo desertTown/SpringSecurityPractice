@@ -11,6 +11,7 @@ import org.springframework.social.connect.UserProfile;
 
 /**
  * @author Evan Huang
+ * 适配spring Social默认的返回信息
  *
  */
 public class QQAdapter implements ApiAdapter<QQ> {

@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 
 /**
  * @author Evan Huang
- *
+ *	社交配置主类
  */
 @Configuration
 @EnableSocial
@@ -68,6 +68,11 @@ public class SocialConfig extends SocialConfigurerAdapter {
 		return configurer;
 	}
 
+	/**
+	 * 处理注册流程的工具类
+	 * @param connectionFactoryLocator
+	 * @return
+	 */
 	@Bean
 	public ProviderSignInUtils providerSignInUtils(ConnectionFactoryLocator connectionFactoryLocator) {
 		return new ProviderSignInUtils(connectionFactoryLocator,

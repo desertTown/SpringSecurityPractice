@@ -8,7 +8,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * @author Evan Huang
- *
+ * 自定义登录和注册连接
  */
 public class ImoocSpringSocialConfigurer extends SpringSocialConfigurer {
 	

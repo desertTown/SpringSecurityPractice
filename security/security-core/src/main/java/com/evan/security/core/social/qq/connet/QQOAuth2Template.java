@@ -16,7 +16,7 @@ import java.nio.charset.Charset;
 
 /**
  * @author Evan Huang
- *
+ * 处理qq返回的令牌信息
  */
 public class QQOAuth2Template extends OAuth2Template {
 	

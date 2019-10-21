@@ -8,6 +8,7 @@ import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 
 /**
  * @author Evan Huang
+ * 连接服务提供商的工厂类
  *
  */
 public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ> {
