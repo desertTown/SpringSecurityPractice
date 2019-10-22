@@ -121,3 +121,7 @@ http://www.pinzhi365.com/evan-signIn.html
 测试:启动sso_server, sso_client1,sso_client2
 http://127.0.0.1:8080/client1/index.html
 账号随便填，  密码是123456
+
+7-2 源码阅读
+分别在登录授权之前和之后访问
+http://127.0.0.1:8060/user/1
