@@ -29,12 +29,6 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.springframework.security.core.userdetails.UserDetailsService#
-	 * loadUserByUsername(java.lang.String)
-	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("表单登录用户名:" + username);
@@ -54,6 +48,6 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 		logger.info("数据库密码是:"+password);
 		return new SocialUser(userId, password,
 				true, true, true, true,
-				AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_ADMIN,ROLE_USER"));
+				AuthorityUtils.commaSeparatedStringToAuthorityList("xxx"));
 	}
 }

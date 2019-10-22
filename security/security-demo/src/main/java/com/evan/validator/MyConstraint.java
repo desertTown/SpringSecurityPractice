@@ -26,4 +26,6 @@ public @interface MyConstraint {
 
 	Class<? extends Payload>[] payload() default { };
 
+	String field() default "";
+
 }

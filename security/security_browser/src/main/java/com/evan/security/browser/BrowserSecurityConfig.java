@@ -3,20 +3,16 @@
  */
 package com.evan.security.browser;
 
-import com.evan.security.browser.session.ImoocExpiredSessionStrategy;
 import com.evan.security.core.authentication.AbstractChannelSecurityConfig;
 import com.evan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
-import com.evan.security.core.properties.SecurityConstants;
+import com.evan.security.core.authorize.AuthorizeConfigManager;
 import com.evan.security.core.properties.SecurityProperties;
 import com.evan.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -60,6 +56,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 	@Autowired
 	private LogoutSuccessHandler logoutSuccessHandler;
 
+	@Autowired
+	private AuthorizeConfigManager authorizeConfigManager;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
@@ -92,21 +91,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 				.logoutSuccessHandler(logoutSuccessHandler)
 				.deleteCookies("JSESSIONID")
 				.and()
-			.authorizeRequests()
-				.antMatchers(
-						SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-						SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-						securityProperties.getBrowser().getLoginPage(),
-						SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
-						securityProperties.getBrowser().getSignUpUrl(),
-						securityProperties.getBrowser().getSignOutUrl(),
-						"/user/regist", "/session/invalid")
-				.permitAll()
-				.antMatchers(HttpMethod.GET, "/user/*").hasRole("ADMIN")
-				.anyRequest()
-				.authenticated()
-				.and()
 			.csrf().disable();
+
+		authorizeConfigManager.config(http.authorizeRequests());
 
 	}
 

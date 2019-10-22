@@ -125,3 +125,14 @@ http://127.0.0.1:8080/client1/index.html
 7-2 源码阅读
 分别在登录授权之前和之后访问
 http://127.0.0.1:8060/user/1
+
+7-3 权限表达式
+
+先登录成功
+> http://localhost:8060/evan-signIn.html
+
+访问允许的页面  
+> http://localhost:8060/index.html
+
+访问权限不够的页面  
+> http://localhost:8060/demo.html

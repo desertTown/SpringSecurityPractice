@@ -5,6 +5,7 @@ package com.evan.security.app;
 
 import com.evan.security.app.authentication.openid.OpenIdAuthenticationSecurityConfig;
 import com.evan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.evan.security.core.authorize.AuthorizeConfigManager;
 import com.evan.security.core.properties.SecurityConstants;
 import com.evan.security.core.properties.SecurityProperties;
 import com.evan.security.core.validate.code.ValidateCodeSecurityConfig;
@@ -46,6 +47,9 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private AuthorizeConfigManager authorizeConfigManager;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -63,22 +67,9 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .apply(openIdAuthenticationSecurityConfig)
                 .and()
-                .authorizeRequests()
-                .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_OPENID,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
-                        securityProperties.getBrowser().getSignUpUrl(),
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl(),
-                        securityProperties.getBrowser().getSignOutUrl(),
-                        "/user/regist", "/social/signUp")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
                 .csrf().disable();
+
+        authorizeConfigManager.config(http.authorizeRequests());
     }
 
 }
