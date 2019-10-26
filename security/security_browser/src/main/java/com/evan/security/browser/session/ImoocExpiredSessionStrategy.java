@@ -3,6 +3,7 @@
  */
 package com.evan.security.browser.session;
 
+import com.evan.security.core.properties.SecurityProperties;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -16,8 +17,8 @@ import java.io.IOException;
  */
 public class ImoocExpiredSessionStrategy extends AbstractSessionStrategy implements SessionInformationExpiredStrategy {
 
-	public ImoocExpiredSessionStrategy(String invalidSessionUrl) {
-		super(invalidSessionUrl);
+	public ImoocExpiredSessionStrategy(SecurityProperties securityPropertie) {
+		super(securityPropertie);
 	}
 
 

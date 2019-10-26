@@ -3,6 +3,7 @@
  */
 package com.evan.security.browser.session;
 
+import com.evan.security.core.properties.SecurityProperties;
 import com.evan.security.core.support.SimpleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
@@ -30,6 +31,12 @@ public class AbstractSessionStrategy {
 	 * 跳转的url
 	 */
 	private String destinationUrl;
+
+	/**
+	 * 系统配置信息
+	 */
+	private SecurityProperties securityPropertie;
+
 	/**
 	 * 重定向策略
 	 */
@@ -41,13 +48,11 @@ public class AbstractSessionStrategy {
 	
 	private ObjectMapper objectMapper = new ObjectMapper();
 
-	/**
-	 * @param invalidSessionUrl
-	 *
-	 */
-	public AbstractSessionStrategy(String invalidSessionUrl) {
+	public AbstractSessionStrategy(SecurityProperties securityPropertie) {
+		String invalidSessionUrl = securityPropertie.getBrowser().getSession().getSessionInvalidUrl();
 		Assert.isTrue(UrlUtils.isValidRedirectUrl(invalidSessionUrl), "url must start with '/' or with 'http(s)'");
 		this.destinationUrl = invalidSessionUrl;
+		this.securityPropertie = securityPropertie;
 	}
 
 
@@ -61,7 +66,12 @@ public class AbstractSessionStrategy {
 		String targetUrl;
 
 		if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
-			targetUrl = destinationUrl+".html";
+			if(StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignInPage())
+					|| StringUtils.equals(sourceUrl, securityPropertie.getBrowser().getSignOutUrl())){
+				targetUrl = sourceUrl;
+			}else{
+				targetUrl = destinationUrl;
+			}
 			logger.info("session失效,跳转到"+targetUrl);
 			redirectStrategy.sendRedirect(request, response, targetUrl);
 		}else{

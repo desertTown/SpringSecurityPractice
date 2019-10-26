@@ -3,6 +3,7 @@
  */
 package com.evan.security.browser.session;
 
+import com.evan.security.core.properties.SecurityProperties;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 
 import javax.servlet.ServletException;
@@ -17,8 +18,8 @@ import java.io.IOException;
  */
 public class ImoocInvalidSessionStrategy extends AbstractSessionStrategy implements InvalidSessionStrategy {
 
-	public ImoocInvalidSessionStrategy(String invalidSessionUrl) {
-		super(invalidSessionUrl);
+	public ImoocInvalidSessionStrategy(SecurityProperties securityProperties) {
+		super(securityProperties);
 	}
 
 	@Override

@@ -16,8 +16,9 @@ import org.springframework.stereotype.Component;
 public class DemoAuthorizeConifgProvider implements AuthorizeConfigProvider {
 
 	@Override
-	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		//demo项目授权配置
+		return false;
 	}
 
 }

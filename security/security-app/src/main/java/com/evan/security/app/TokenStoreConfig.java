@@ -27,7 +27,7 @@ public class TokenStoreConfig {
 
 	/**
 	 * 使用redis存储token的配置，只有在evan.security.oauth2.tokenStore配置为redis时生效
-	 * @author zhailiang
+	 * @author Evan Huang
 	 *
 	 */
 	@Configuration
@@ -50,7 +50,7 @@ public class TokenStoreConfig {
 	/**
 	 * 使用jwt时的配置，默认生效
 	 *
-	 * @author zhailiang
+	 * @author Evan Huang
 	 *
 	 */
 	@Configuration

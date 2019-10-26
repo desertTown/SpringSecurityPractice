@@ -14,7 +14,7 @@ import org.springframework.social.security.SocialUserDetailsService;
  * 
  * 不做任何处理，只在控制台打印一句日志，然后抛出异常，提醒业务系统自己配置SocialUserDetailsService。
  * 
- * @author zhailiang
+ * @author Evan Huang
  *
  */
 public class DefaultSocialUserDetailsService implements SocialUserDetailsService {
@@ -23,7 +23,7 @@ public class DefaultSocialUserDetailsService implements SocialUserDetailsService
 	
 	@Override
 	public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-		logger.error("请配置 SocialUserDetailsService 接口的实现.");
+		logger.warn("请配置 SocialUserDetailsService 接口的实现.");
 		throw new UsernameNotFoundException(userId);
 	}
 

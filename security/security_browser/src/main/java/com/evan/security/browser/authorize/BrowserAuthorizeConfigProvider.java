@@ -19,13 +19,14 @@ import org.springframework.stereotype.Component;
 public class BrowserAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
 	@Override
-	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		config.antMatchers(HttpMethod.GET,
 			"/**/*.js",
 			"/**/*.css",
 			"/**/*.jpg",
 			"/**/*.png",
 			"/**/*.gif").permitAll();
+		return false;
 	}
 
 }

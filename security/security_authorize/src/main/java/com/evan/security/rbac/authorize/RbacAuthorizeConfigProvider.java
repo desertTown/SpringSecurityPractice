@@ -19,15 +19,16 @@ import org.springframework.stereotype.Component;
 public class RbacAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
 	@Override
-	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		config
-		.antMatchers(HttpMethod.GET, "/fonts/**").permitAll()
-		.antMatchers(HttpMethod.GET,
-				"**/*.html",
-				"/admin/me",
-				"/resource").authenticated()
-		.anyRequest()
-			.access("@rbacService.hasPermission(request, authentication)");
+				.antMatchers(HttpMethod.GET, "/fonts/**").permitAll()
+				.antMatchers(HttpMethod.GET,
+						"/**/*.html",
+						"/admin/me",
+						"/resource").authenticated()
+				.anyRequest()
+				.access("@rbacService.hasPermission(request, authentication)");
+		return true;
 	}
 
 }
