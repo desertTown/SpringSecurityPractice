@@ -17,6 +17,11 @@
             <artifactId>security_browser</artifactId>
             <version>${security.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.evan</groupId>
+            <artifactId>security_authorize</artifactId>
+            <version>${security.version}</version>
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>com.evan</groupId>-->
 <!--            <artifactId>security-app</artifactId>-->

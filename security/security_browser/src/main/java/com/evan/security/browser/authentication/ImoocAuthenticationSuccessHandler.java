@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.evan.security.core.properties.LoginResponseType;
 import com.evan.security.core.properties.SecurityProperties;
+import com.evan.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +53,7 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
 
 		if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
 			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(objectMapper.writeValueAsString(authentication));
+			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse("FORM")));
 		} else {
 			// 父类的方式是跳转
 			super.onAuthenticationSuccess(request, response, authentication);
