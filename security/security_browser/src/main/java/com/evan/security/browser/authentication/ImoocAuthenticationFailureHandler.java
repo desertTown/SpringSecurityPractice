@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Evan Huang
- *
+ *  浏览器环境下登录失败的处理器
  */
 @Component("imoocAuthenticationFailureHandler")
 public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

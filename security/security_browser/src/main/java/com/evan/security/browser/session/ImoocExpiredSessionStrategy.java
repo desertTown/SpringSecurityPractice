@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 /**
+ * 并发登录导致session失效时，默认的处理策略
  * @author Evan Huang
  *
  */

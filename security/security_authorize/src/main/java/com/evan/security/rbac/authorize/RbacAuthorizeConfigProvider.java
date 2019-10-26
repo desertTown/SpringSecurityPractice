@@ -22,7 +22,8 @@ public class RbacAuthorizeConfigProvider implements AuthorizeConfigProvider {
 	public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		config
 		.antMatchers(HttpMethod.GET, "/fonts/**").permitAll()
-		.antMatchers(HttpMethod.GET, 
+		.antMatchers(HttpMethod.GET,
+				"**/*.html",
 				"/admin/me",
 				"/resource").authenticated()
 		.anyRequest()

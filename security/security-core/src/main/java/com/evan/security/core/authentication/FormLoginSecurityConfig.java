@@ -6,12 +6,14 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Evan Huang
  *
  */
-public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter {
+@Component
+public class FormLoginSecurityConfig{
 
     @Autowired
     protected AuthenticationSuccessHandler imoocAuthenticationSuccessHandler;
@@ -19,7 +21,7 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
     @Autowired
     protected AuthenticationFailureHandler imoocAuthenticationFailureHandler;
 
-    protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception {
+    public void configure(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
                 .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)

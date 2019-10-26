@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 默认的session失效处理策略
  * @author Evan Huang
  *
  */

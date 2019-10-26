@@ -3,7 +3,7 @@
  */
 package com.evan.security.browser;
 
-import com.evan.security.core.authentication.AbstractChannelSecurityConfig;
+import com.evan.security.core.authentication.FormLoginSecurityConfig;
 import com.evan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.evan.security.core.authorize.AuthorizeConfigManager;
 import com.evan.security.core.properties.SecurityProperties;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -24,10 +25,10 @@ import javax.sql.DataSource;
 
 /**
  * @author Evan Huang
- *
+ * 浏览器环境下安全配置主类
  */
 @Configuration
-public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
+public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private SecurityProperties securityProperties;
@@ -59,10 +60,13 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 	@Autowired
 	private AuthorizeConfigManager authorizeConfigManager;
 
+	@Autowired
+	private FormLoginSecurityConfig formLoginSecurityConfig;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		applyPasswordAuthenticationConfig(http);
+		formLoginSecurityConfig.configure(http);
 
 		http.apply(validateCodeSecurityConfig)
 				.and()
