@@ -3,7 +3,8 @@
  */
 package com.evan.security.browser;
 
-import com.evan.security.core.support.SocialUserInfo;
+import com.evan.security.core.social.SocialController;
+import com.evan.security.core.social.support.SocialUserInfo;
 import com.evan.security.core.properties.SecurityConstants;
 import com.evan.security.core.properties.SecurityProperties;
 import com.evan.security.core.support.SimpleResponse;
@@ -35,7 +36,7 @@ import java.io.IOException;
  * 浏览器环境下与安全相关的服务
  */
 @RestController
-public class BrowserSecurityController {
+public class BrowserSecurityController extends SocialController {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -67,7 +68,7 @@ public class BrowserSecurityController {
 			String targetUrl = savedRequest.getRedirectUrl();
 			logger.info("引发跳转的请求是:"+targetUrl);
 			if(StringUtils.endsWithIgnoreCase(targetUrl, ".html")){
-				redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
+				redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getSignInPage());
 			}
 		}
 
@@ -80,15 +81,10 @@ public class BrowserSecurityController {
 	 * @param request
 	 * @return
 	 */
-	@GetMapping("/social/user")
+	@GetMapping(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL)
 	public SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
-		SocialUserInfo userInfo = new SocialUserInfo();
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
-		userInfo.setProviderId(connection.getKey().getProviderId());
-		userInfo.setProviderUserId(connection.getKey().getProviderUserId());
-		userInfo.setNickname(connection.getDisplayName());
-		userInfo.setHeadimg(connection.getImageUrl());
-		return userInfo;
+		return buildSocialUserInfo(connection);
 	}
 
 	@GetMapping("/session/invalid")

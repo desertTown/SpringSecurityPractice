@@ -4,6 +4,8 @@
 package com.evan.security.core.social;
 
 import com.evan.security.core.properties.SecurityProperties;
+import com.evan.security.core.social.support.ImoocSpringSocialConfigurer;
+import com.evan.security.core.social.support.SocialAuthenticationFilterPostProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +61,10 @@ public class SocialConfig extends SocialConfigurerAdapter {
 		return repository;
 	}
 
+	/**
+	 * 社交登录配置类，供浏览器或app模块引入设计登录配置用。
+	 * @return
+	 */
 	@Bean
 	public SpringSocialConfigurer imoocSocialSecurityConfig() {
 		String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();

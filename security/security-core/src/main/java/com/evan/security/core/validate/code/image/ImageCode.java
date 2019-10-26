@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 
 
 /**
+ *  图片验证码
  * @author Evan Huang
  *
  */

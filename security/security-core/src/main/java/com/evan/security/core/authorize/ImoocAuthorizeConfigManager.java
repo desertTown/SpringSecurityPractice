@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 默认的授权配置管理器
  * @author Evan Huang
  *
  */

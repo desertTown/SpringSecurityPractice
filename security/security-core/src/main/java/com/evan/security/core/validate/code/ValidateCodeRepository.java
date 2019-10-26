@@ -6,6 +6,7 @@ package com.evan.security.core.validate.code;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
+ * 校验码存取器
  * @author Evan Huang
  *
  */

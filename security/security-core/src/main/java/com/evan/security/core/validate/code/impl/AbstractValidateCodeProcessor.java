@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 
 /**
+ * 抽象的图片验证码处理器
  * @author Evan Huang
  *
  */

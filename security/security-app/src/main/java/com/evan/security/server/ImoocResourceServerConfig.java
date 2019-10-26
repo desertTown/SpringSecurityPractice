@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.evan.security.app;
+package com.evan.security.server;
 
 import com.evan.security.app.authentication.openid.OpenIdAuthenticationSecurityConfig;
+import com.evan.security.core.authentication.FormAuthenticationConfig;
 import com.evan.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.evan.security.core.authorize.AuthorizeConfigManager;
 import com.evan.security.core.properties.SecurityConstants;
@@ -20,7 +21,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * @author Evan Huang
- *
+ * 资源服务器配置
  */
 @Configuration
 @EnableResourceServer
@@ -45,19 +46,15 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
     private SpringSocialConfigurer imoocSocialSecurityConfig;
 
     @Autowired
-    private SecurityProperties securityProperties;
+    private AuthorizeConfigManager authorizeConfigManager;
 
     @Autowired
-    private AuthorizeConfigManager authorizeConfigManager;
+    private FormAuthenticationConfig formAuthenticationConfig;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        http.formLogin()
-                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
-                .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
-                .successHandler(imoocAuthenticationSuccessHandler)
-                .failureHandler(imoocAuthenticationFailureHandler);
+        formAuthenticationConfig.configure(http);
 
         http.apply(validateCodeSecurityConfig)
                 .and()

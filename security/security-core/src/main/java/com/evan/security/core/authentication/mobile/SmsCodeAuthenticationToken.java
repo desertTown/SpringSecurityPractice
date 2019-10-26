@@ -12,6 +12,7 @@ import org.springframework.security.core.SpringSecurityCoreVersion;
 /**
  * @author Evan Huang
  * 参考自 UsernamePasswordAuthenticationToken
+ * 短信登录验证信息封装类
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
 

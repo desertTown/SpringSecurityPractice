@@ -4,6 +4,7 @@
 package com.evan.security.core.properties;
 
 /**
+ * 认证成功后的响应方式
  * @author Evan Huang
  *
  */

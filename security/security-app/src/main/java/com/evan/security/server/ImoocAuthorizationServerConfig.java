@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.app;
+package com.evan.security.server;
 
 import com.evan.security.core.properties.OAuth2ClientProperties;
 import com.evan.security.core.properties.SecurityProperties;
@@ -15,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -25,6 +26,7 @@ import java.util.List;
 
 /**
  * @author Evan Huang
+ * 认证服务器配置
  *
  */
 @Configuration
@@ -51,6 +53,9 @@ public class ImoocAuthorizationServerConfig extends AuthorizationServerConfigure
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * 认证及token配置
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.tokenStore(tokenStore)
@@ -68,6 +73,16 @@ public class ImoocAuthorizationServerConfig extends AuthorizationServerConfigure
         }
     }
 
+    /**
+     * tokenKey的访问权限表达式配置
+     */
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.tokenKeyAccess("permitAll()");
+    }
+
+    /**
+     * 客户端配置
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 //        clients.inMemory()

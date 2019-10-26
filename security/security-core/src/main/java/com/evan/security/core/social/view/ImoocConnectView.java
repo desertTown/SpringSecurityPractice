@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.core.social;
+package com.evan.security.core.social.view;
 
 import org.springframework.web.servlet.view.AbstractView;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
+ * 绑定结果视图
  * @author Evan Huang
  *
  */

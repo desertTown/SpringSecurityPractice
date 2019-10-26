@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.core.support;
+package com.evan.security.core.social.support;
 
 /**
  * @author Evan Huang

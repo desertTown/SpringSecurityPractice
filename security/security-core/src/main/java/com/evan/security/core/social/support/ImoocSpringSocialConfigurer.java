@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.core.social;
+package com.evan.security.core.social.support;
 
 import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SpringSocialConfigurer;
@@ -9,6 +9,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 /**
  * @author Evan Huang
  * 自定义登录和注册连接
+ * 继承默认的社交登录配置，加入自定义的后处理逻辑
  */
 public class ImoocSpringSocialConfigurer extends SpringSocialConfigurer {
 	

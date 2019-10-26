@@ -18,6 +18,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 
 /**
+ * 默认的图片验证码生成器
  * @author Evan Huang
  *
  */

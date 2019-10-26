@@ -22,6 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Evan Huang
+ * APP环境下认证失败处理器
  *
  */
 @Component("imoocAuthenticationFailureHandler")
@@ -31,9 +32,7 @@ public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
 	
 	@Autowired
 	private ObjectMapper objectMapper;
-	
-	@Autowired
-	private SecurityProperties securityProperties;
+
 
 
 	@Override
@@ -41,23 +40,11 @@ public class ImoocAuthenticationFailureHandler extends SimpleUrlAuthenticationFa
 			AuthenticationException exception) throws IOException, ServletException {
 		
 		logger.info("登录失败");
-		
-		if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
-			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			response.setContentType("application/json;charset=UTF-8");
-			response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
-		}else{
-            // 在这里失败跳转不回去了。而且异常信息也没有打印出来。父类默认打印了死的一句话
-            // 在这里就不往上面扔了,这里就先当做 defaultFailureUrl 不存在吧
-            // 模拟打印异常信息
-            response.setContentType("text/html;charset=UTF-8");
-            response.sendError(HttpStatus.UNAUTHORIZED.value(),
-                    exception.getLocalizedMessage());
-//			super.onAuthenticationFailure(request, response, exception);
-			super.onAuthenticationFailure(request, response, exception);
-		}
-		
-		
+
+		response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(exception.getMessage())));
+
 	}
 
 }

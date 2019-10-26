@@ -6,7 +6,7 @@ package com.evan.security.core.social.weixin.config;
 
 import com.evan.security.core.properties.SecurityProperties;
 import com.evan.security.core.properties.WeixinProperties;
-import com.evan.security.core.social.ImoocConnectView;
+import com.evan.security.core.social.view.ImoocConnectView;
 import com.evan.security.core.social.weixin.connect.WeixinConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

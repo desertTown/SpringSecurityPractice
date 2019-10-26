@@ -6,7 +6,9 @@ package com.evan.security.app;
 import javax.servlet.http.HttpServletRequest;
 
 import com.evan.security.app.social.AppSingUpUtils;
-import com.evan.security.core.support.SocialUserInfo;
+import com.evan.security.core.properties.SecurityConstants;
+import com.evan.security.core.social.SocialController;
+import com.evan.security.core.social.support.SocialUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.social.connect.Connection;
@@ -22,15 +24,20 @@ import org.springframework.web.context.request.ServletWebRequest;
  *
  */
 @RestController
-public class AppSecurityController {
+public class AppSecurityController extends SocialController {
 	
 	@Autowired
 	private ProviderSignInUtils providerSignInUtils;
 	
 	@Autowired
 	private AppSingUpUtils appSingUpUtils;
-	
-	@GetMapping("/social/signUp")
+
+	/**
+	 * 需要注册时跳到这里，返回401和用户信息给前端
+	 * @param request
+	 * @return
+	 */
+	@GetMapping(SecurityConstants.DEFAULT_SOCIAL_USER_INFO_URL)
 	@ResponseStatus(HttpStatus.UNAUTHORIZED)
 	public SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
 		SocialUserInfo userInfo = new SocialUserInfo();
@@ -41,8 +48,8 @@ public class AppSecurityController {
 		userInfo.setHeadimg(connection.getImageUrl());
 		
 		appSingUpUtils.saveConnectionData(new ServletWebRequest(request), connection.createData());
-		
-		return userInfo;
+
+		return buildSocialUserInfo(connection);
 	}
 
 }

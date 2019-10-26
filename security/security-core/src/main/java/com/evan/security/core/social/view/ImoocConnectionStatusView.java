@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.evan.security.core.social;
+package com.evan.security.core.social.view;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 社交账号绑定状态视图
  * @author Evan Huang
  *
  */

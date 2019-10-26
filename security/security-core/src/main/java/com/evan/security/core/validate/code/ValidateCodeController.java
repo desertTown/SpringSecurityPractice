@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * 生成校验码的请求处理器
  * @author Evan Huang
  *
  */

@@ -15,7 +15,7 @@ import java.util.Map;
  * @author Evan Huang
  *
  */
-public class ImoocJwtTokenEnhancer implements TokenEnhancer {
+public class TokenJwtEnhancer implements TokenEnhancer {
 
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {

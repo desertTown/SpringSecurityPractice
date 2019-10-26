@@ -4,6 +4,7 @@
 package com.evan.security.core.properties;
 
 /**
+ * 图片验证码配置项
  * @author Evan Huang
  *
  */
@@ -12,8 +13,14 @@ public class ImageCodeProperties extends SmsCodeProperties{
 	public ImageCodeProperties() {
 		setLength(4);
 	}
-	
+
+	/**
+	 * 图片宽
+	 */
 	private int width = 67;
+	/**
+	 * 图片高
+	 */
 	private int height = 23;
 	
 	public int getWidth() {

@@ -7,6 +7,7 @@ package com.evan.security.core.validate.code;
 import com.evan.security.core.properties.SecurityConstants;
 
 /**
+ * 校验码类型
  * @author Evan Huang
  *
  */

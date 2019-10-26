@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @author Evan Huang
- *
+ * APP环境下认证成功处理器
  */
 @Component("imoocAuthenticationSuccessHandler")
 public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
@@ -39,9 +39,6 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
 
 	@Autowired
 	private ObjectMapper objectMapper;
-
-	@Autowired
-	private SecurityProperties securityProperties;
 
 	@Autowired
 	private ClientDetailsService clientDetailsService;

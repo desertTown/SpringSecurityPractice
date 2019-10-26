@@ -6,6 +6,7 @@ package com.evan.security.core.properties;
 import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
+ * 微信登录配置项
  * @author Evan Huang
  *
  */
