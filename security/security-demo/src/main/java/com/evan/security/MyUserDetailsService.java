@@ -3,8 +3,6 @@
  */
 package com.evan.security;
 
-import com.evan.security.rbac.domain.Admin;
-import com.evan.security.rbac.repository.AdminRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Evan Huang
  *
  */
-//@Component
-//@Transactional
+@Component
+@Transactional
 public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -30,15 +30,13 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private AdminRepository adminRepository;
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("表单登录用户名:" + username);
-		Admin admin = adminRepository.findByUsername(username);
-		admin.getUrls();
-		return admin;
+//		Admin admin = adminRepository.findByUsername(username);
+//		admin.getUrls();
+//		return admin;
+		return buildUser(username);
 	}
 
 	@Override

@@ -86,11 +86,4 @@ public class BrowserSecurityController extends SocialController {
 		Connection<?> connection = providerSignInUtils.getConnectionFromSession(new ServletWebRequest(request));
 		return buildSocialUserInfo(connection);
 	}
-
-	@GetMapping("/session/invalid")
-	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-	public SimpleResponse sessionInvalid() {
-		String message = "session失效";
-		return new SimpleResponse(message);
-	}
 }

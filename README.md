@@ -136,3 +136,9 @@ http://127.0.0.1:8060/user/1
 
 访问权限不够的页面  
 > http://localhost:8060/demo.html
+
+Fianl: 使用Demo项目直接测试访问 
+1. http://localhost:8080/evan-signIn.html
+
+账号: 任意
+密码: 123456

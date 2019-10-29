@@ -19,7 +19,7 @@ import org.springframework.social.connect.ConnectionFactory;
  */
 @Configuration
 @ConditionalOnProperty(prefix = "evan.security.social.qq", name = "app-id")
-@Order(2)
+@Order(11)
 public class QQAutoConfig extends SocialAutoConfigurerAdapter {
 
 	@Autowired
