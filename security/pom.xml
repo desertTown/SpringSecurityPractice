@@ -25,6 +25,7 @@
         <module>security_browser</module>
         <module>sso_demo</module>
         <module>security_authorize</module>
+        <module>test</module>
     </modules>
 
     <dependencyManagement>

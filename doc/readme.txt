@@ -16,3 +16,4 @@
 2).创建并配置用户注册页面，并实现注册服务(需要配置访问权限)，注意在服务中要调用ProviderSignInUtils的doPostSignUp方法。
 3).添加SocialUserDetailsService接口实现
 4).创建社交登录用的表 (参见 db.sql)
+5）如果想默认帮用户创建ID， 不走注册流程， 则需要实现这个类 ConnectionSignUp， 具体参考DemoConnectionSignUp类
