@@ -142,3 +142,11 @@ Fianl: 使用Demo项目直接测试访问
 
 账号: 任意
 密码: 123456
+
+
+8-1 测试带有RBAC的模块
+http://www.pinzhi365.com/evan-signIn.html
+账号是admin
+密码是123456
+
+登录成功之后会跳转到admin主页
