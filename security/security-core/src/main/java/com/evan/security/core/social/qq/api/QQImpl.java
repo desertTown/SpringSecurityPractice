@@ -5,6 +5,7 @@ package com.evan.security.core.social.qq.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.social.UserIdSource;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 
@@ -13,7 +14,7 @@ import org.springframework.social.oauth2.TokenStrategy;
  *	QQImpl是一个多实例的类，每次需要的时候都需要实例化， 不能在这个类上直接加上@Component声明成一个Spring组件，
  *	那样的话就会变成单例的了。 如果是单例的话那么像accessToken这种全局变量在使用的时候就会有线程安全问题
  */
-public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
+public class QQImpl extends AbstractOAuth2ApiBinding implements QQ, UserIdSource {
 	
 	private static final String URL_GET_OPENID = "https://graph.qq.com/oauth2.0/me?access_token=%s";
 
@@ -61,6 +62,11 @@ public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 		} catch (Exception e) {
 			throw new RuntimeException("获取用户信息失败", e);
 		}
+	}
+
+	@Override
+	public String getUserId() {
+		return getUserInfo().getOpenId();
 	}
 
 }

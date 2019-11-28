@@ -93,6 +93,8 @@ public class QQUserInfo {
 
 
 	private String figureurl_type;
+
+	private String gender_type;
 	
 	public String getRet() {
 		return ret;
@@ -231,5 +233,13 @@ public class QQUserInfo {
 
 	public void setFigureurl_type(String figureurl_type) {
 		this.figureurl_type = figureurl_type;
+	}
+
+	public String getGender_type() {
+		return gender_type;
+	}
+
+	public void setGender_type(String gender_type) {
+		this.gender_type = gender_type;
 	}
 }

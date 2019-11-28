@@ -31,13 +31,13 @@ public class ResourceServiceImpl implements ResourceService {
 
 	@Override
 	public ResourceInfo getTree(Long adminId) {
-		Admin admin = adminRepository.findOne(adminId);
+		Admin admin = adminRepository.findById(adminId).get();
 		return resourceRepository.findByName("根节点").toTree(admin);
 	}
 
 	@Override
 	public ResourceInfo getInfo(Long id) {
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceRepository.findById(id).get();
 		ResourceInfo resourceInfo = new ResourceInfo();
 		BeanUtils.copyProperties(resource, resourceInfo);
 		return resourceInfo;
@@ -45,7 +45,7 @@ public class ResourceServiceImpl implements ResourceService {
 
 	@Override
 	public ResourceInfo create(ResourceInfo info) {
-		Resource parent = resourceRepository.findOne(info.getParentId());
+		Resource parent = resourceRepository.findById(info.getParentId()).get();
 		if(parent == null){
 			parent = resourceRepository.findByName("根节点");
 		}
@@ -58,19 +58,19 @@ public class ResourceServiceImpl implements ResourceService {
 
 	@Override
 	public ResourceInfo update(ResourceInfo info) {
-		Resource resource = resourceRepository.findOne(info.getId());
+		Resource resource = resourceRepository.findById(info.getId()).get();
 		BeanUtils.copyProperties(info, resource);
 		return info;
 	}
 
 	@Override
 	public void delete(Long id) {
-		resourceRepository.delete(id);
+		resourceRepository.deleteById(id);
 	}
 
 	@Override
 	public Long move(Long id, boolean up) {
-		Resource resource = resourceRepository.findOne(id);
+		Resource resource = resourceRepository.findById(id).get();
 		int index = resource.getSort();
 		List<Resource> childs = resource.getParent().getChilds();
 		for (int i = 0; i < childs.size(); i++) {

@@ -3,14 +3,23 @@
  */
 package com.evan.security.core.properties;
 
-import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
  * QQ登录配置项
  * @author Evan Huang
  *
  */
-public class QQProperties extends SocialProperties {
+public class QQProperties {
+	/**
+	 * Application id.
+	 */
+	private String appId;
+
+	/**
+	 * Application secret.
+	 */
+	private String appSecret;
+
 
 	/**
 	 * 第三方id，用来决定发起第三方登录的url，默认是 qq。
@@ -23,6 +32,22 @@ public class QQProperties extends SocialProperties {
 
 	public void setProviderId(String providerId) {
 		this.providerId = providerId;
+	}
+
+	public String getAppId() {
+		return this.appId;
+	}
+
+	public void setAppId(String appId) {
+		this.appId = appId;
+	}
+
+	public String getAppSecret() {
+		return this.appSecret;
+	}
+
+	public void setAppSecret(String appSecret) {
+		this.appSecret = appSecret;
 	}
 	
 }

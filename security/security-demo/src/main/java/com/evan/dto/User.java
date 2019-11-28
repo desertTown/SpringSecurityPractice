@@ -8,7 +8,7 @@ import java.util.Date;
 import javax.validation.constraints.Past;
 
 import com.evan.validator.MyConstraint;
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
